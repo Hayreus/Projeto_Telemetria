@@ -1,0 +1,21 @@
+% Configuração da porta serial no matlab
+s = serial('COMx'); % Substitua 'x' pelo número da porta serial
+set(s, 'BaudRate', 9600); % Configura a taxa de baudrate para 9600 (igual à usada no Arduino)
+fopen(s); % Abre a porta serial
+
+try
+    while true
+        % Lê uma linha da porta serial
+        data = fgetl(s);
+        
+        % Exibe os dados recebidos no Command Window
+        disp(data);
+        
+        % Aqui você pode adicionar o processamento adicional dos dados recebidos, se necessário
+    end
+catch
+    % Fecha a porta serial em caso de erro ou interrupção do loop
+    fclose(s);
+    delete(s);
+    clear s;
+end
